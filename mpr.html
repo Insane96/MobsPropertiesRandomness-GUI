@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Mobs Properties Randomness</title>
+		<script type="text/javascript" src="mpr.js"></script>
+		<link rel="stylesheet" type="text/css" href="mpr.css">
+	</head>
+	
+	<body>
+		<p>Please Report bugs</p>
+		Mob Id / Group Name <input type="text" id="mob_id" placeholder="minecraft:creeper" />
+		<button id="generate" onclick="Generate()">Generate JSON</button>
+		<button id="add_potion_effect" onclick="AddPotionEffect()">Add Potion Effect</button>
+		<button id="add_attribute" onclick="AddAttribute()">Add Attribute</button> <p />
+		<table>
+			<tr>
+				<td>
+					<div id="potion_effects" class="container"></div>
+				</td>
+				<td>
+					<div id="attributes" class="container"></div>
+				</td>
+				<td>
+					<div id="equipment" class="container"></div>
+				</td>
+			</tr>
+		</table>
+		<pre id="json"></pre>
+	</body>
+</html>
