@@ -3,6 +3,17 @@ window.onload = function() {
 	DOM.json = document.getElementById("json");
 	DOM.potion_effects = document.getElementById("potion_effects");
 	DOM.attributes = document.getElementById("attributes");
+
+	DOM.version = document.getElementById("version");
+
+	DOM.tooltip = document.getElementById("tooltip");
+
+	DOM.version.addEventListener("mouseenter", function() {
+		ShowTooltip("Missing Equipment and Mobs Specific Properties", DOM.version);
+	});
+	DOM.version.addEventListener("mouseleave", function() {
+		HideTooltip();
+	});
 }
 
 /*window.onbeforeunload = function() {
@@ -162,6 +173,24 @@ function Generate() {
 	}, "\t");
 	DOM.json.innerHTML = json;
 
+}
+
+function ShowTooltip(text, dom) {
+	DOM.tooltip.style.display = "initial";
+	DOM.tooltip.innerHTML = text;
+	x = dom.getBoundingClientRect().x - 200;
+	y = dom.getBoundingClientRect().y + dom.getBoundingClientRect().height;
+	/*if (DOM.tooltip.getBoundingClientRect().width < 200){
+		DOM.tooltip.style.minWidth = 200px;
+	}*/
+	DOM.tooltip.style.left = x + "px";
+	DOM.tooltip.style.top = y + "px";
+	DOM.tooltip.style.visibility = "visible";
+}
+
+function HideTooltip() {
+	DOM.tooltip.style.display = "none";
+	DOM.tooltip.style.visibility = "hidden";
 }
 
 function GetInputValue(id) {

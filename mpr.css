@@ -31,3 +31,24 @@ body {
 	text-align: center;
 	border: 1px solid black;
 }
+
+#version {
+	position: absolute;
+	right: 8px;
+	top: 0%;
+	color: darkblue;
+}
+
+#git {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+}
+
+#tooltip {
+	position: absolute;
+	background-color: chocolate;
+	min-width: 200px;
+	border: 2px solid black;
+	visibility: hidden;
+}
