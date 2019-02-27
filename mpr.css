@@ -1,6 +1,6 @@
 body {
 	/*margin: 0;*/
-	background-color: dimgray;
+	background-color: slategray;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-size: 10pt;
 }
@@ -33,16 +33,16 @@ body {
 }
 
 #version {
-	position: absolute;
-	right: 8px;
+	position: fixed;
+	right: 1%;
 	top: 0%;
 	color: darkblue;
 }
 
 #git {
-	position: absolute;
-	right: 8px;
-	bottom: 8px;
+	position: fixed;
+	right: 1%;
+	bottom: 1%;
 }
 
 #tooltip {
