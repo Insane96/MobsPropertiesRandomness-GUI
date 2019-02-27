@@ -7,13 +7,8 @@ window.onload = function() {
 	DOM.version = document.getElementById("version");
 
 	DOM.tooltip = document.getElementById("tooltip");
-
-	DOM.version.addEventListener("mouseenter", function() {
-		ShowTooltip("• Missing Equipment and Mobs Specific Properties and Groups<br />• There's no way to remove something<br />• Looks pretty bad", DOM.version);
-	});
-	DOM.version.addEventListener("mouseleave", function() {
-		HideTooltip();
-	});
+	
+	RefreshTooltips();
 }
 
 /*window.onbeforeunload = function() {
@@ -33,7 +28,7 @@ function Generate() {
 
 	mob.potion_effects.push(GetPotionEffects());
 	mob.potion_effects.push(GetAttributes());
-	
+
 	json = JSON.stringify(mob, (key, value) => {
 		//console.log(key + ": " + value);
 		if (value !== null && value !== "")
