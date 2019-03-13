@@ -11,15 +11,16 @@ class PotionEffect {
 }
 
 PotionEffect.count = 0;
-PotionEffect.form = "<table class=\"potion_effect_table\"><tr><td colspan=\"2\"><p class=\"form_name\">Potion Effect #%0</p></td></tr><tr><td>Id <input class=\"has_tooltip\" data-tooltip=\"The Potion Effect ID\" type=\"text\" id=\"potion_effect_id_%0\" placeholder=\"minecraft:regeneration\" /><br /></td><td>Amplifier Min & Max<br /><input class=\"has_tooltip\" data-tooltip=\"The minimum amplifier possible when the potion effect is applied\" type=\"number\" id=\"potion_effect_amplifier_min_%0\" min=\"0\" max=\"255\" value=\"0\" /> <input class=\"has_tooltip\" data-tooltip=\"The maximum amplifier possible when the potion effect is applied\" type=\"number\" id=\"potion_effect_amplifier_max_%0\" min=\"0\" max=\"255\" value=\"0\" /></td></tr><tr><td><p class=\"chance_title\">Chance</p>Amount <input class=\"has_tooltip\" data-tooltip=\"Percentage Chance for this Potion Effect to be Applied\" type=\"number\" id=\"potion_effect_chance_amount_%0\" min=\"0\" max=\"100\" step=\"0.1\" value=\"100\" /> <br />Is Affected By Difficulty <input class=\"has_tooltip\" data-tooltip=\"If the percentage chance should be modified by Difficulty\" type=\"checkbox\" id=\"potion_effect_chance_affected_by_difficulty_%0\" /> <br />Is Local Difficulty <input class=\"has_tooltip\" data-tooltip=\"If percentage chance should be modified by Local Difficulty (aka Regional Difficulty) instead of plain difficulty (Easy, Normal or Hard)\" type=\"checkbox\" id=\"potion_effect_chance_is_local_difficulty_%0\" /> <br />Multiplier <input class=\"has_tooltip\" data-tooltip=\"Multiplier for the percentage chance\" type=\"number\" id=\"potion_effect_chance_multiplier_%0\" min=\"0\" max=\"128\" value=\"1\" /></td><td>Ambient <input class=\"has_tooltip\" data-tooltip=\"If potion effect particles should be visible partially like beacon effects ones\" type=\"checkbox\" id=\"potion_effect_ambient_%0\" /><br />Hide Particles <input class=\"has_tooltip\" data-tooltip=\"If particles should not be displayed at all\" type=\"checkbox\" id=\"potion_effect_hide_particles_%0\" /></td></tr><tr><td>Dimensions<br /><textarea class=\"has_tooltip\" data-tooltip=\"A list of dimensions where the potion effect should be applied. NOTE: only one dimension per line\" id=\"potion_effect_dimensions_%0\" cols=\"5\" rows=\"5\" placeholder=\"0\n-1\"></textarea></td><td>Biomes<br /><textarea class=\"has_tooltip\" data-tooltip=\"A list of biomes where the potion effect should be applied. NOTE: only one biome per line\" id=\"potion_effect_biomes_%0\" cols=\"25\" rows=\"5\" placeholder=\"minecraft:plains\nminecraft:desert\"></textarea></td></tr></table>";
 
 function AddPotionEffect() {
 	container = document.createElement("div");
 	container.id = "potion_effect_" + PotionEffect.count;
 
-	pe_form = PotionEffect.form.replace(/%0/g, PotionEffect.count);
+	pe_form = document.getElementById("potion_effect_form").cloneNode(true);
+	pe_form.id = "potion_effect_" + PotionEffect.count;
+	pe_form.innerHTML = pe_form.innerHTML.replace(/%0/g, PotionEffect.count);
 
-	container.innerHTML = pe_form;
+	container.appendChild(pe_form);
 
 	DOM.potion_effects.appendChild(container);
 

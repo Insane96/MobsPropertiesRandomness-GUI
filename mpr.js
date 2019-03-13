@@ -1,3 +1,12 @@
+class Mob {
+	constructor(mob_id) {
+		this.mob_id = mob_id;
+		this.potion_effects = [];
+		this.attributes = [];
+		this.equipment = [];
+	}
+}
+
 var DOM = {};
 window.onload = function() {
 	DOM.json = document.getElementById("json");
@@ -12,14 +21,8 @@ window.onload = function() {
 }
 
 /*window.onbeforeunload = function() {
-	return false;
+    return false;
 }*/
-
-function Mob(mob_id) {
-	this.mob_id = mob_id;
-	this.potion_effects = [];
-	this.attributes = [];
-}
 
 function Generate() {
 

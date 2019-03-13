@@ -32,6 +32,10 @@ body {
 	border: 1px solid black;
 }
 
+.potion_effect_table#potion_effect_form {
+	display: none;
+}
+
 #version {
 	position: fixed;
 	right: 1%;
