@@ -16,10 +16,10 @@
 	<body>
 		<p>Please Report bugs</p>
 		<p class="has_tooltip" data-tooltip="• Missing Equipment, Mobs Specific Properties and Groups<br />• Missing Validation for fields, be aware of what you write!<br />• There's no way to remove something<br />• Looks pretty bad" id="version">WIP Version</p>
-		Mob Id <input class="has_tooltip" data-tooltip="The Mob ID" type="text" id="mob_id" placeholder="minecraft:creeper" />
-		<button id="generate" onclick="Generate()">Generate JSON</button>
-		<button id="add_potion_effect" onclick="AddPotionEffect()">Add Potion Effect</button>
-		<button id="add_attribute" onclick="AddAttribute()">Add Attribute</button> <p />
+		Mob Id <input class="has_tooltip mandatory" data-tooltip="The Mob ID" type="text" id="mob_id" placeholder="minecraft:creeper" />
+		<button id="generate" onclick="generate()">Generate JSON</button>
+		<button id="add_potion_effect" onclick="addPotionEffect()">Add Potion Effect</button>
+		<button id="add_attribute" onclick="addAttribute()">Add Attribute</button> <p />
 		<table>
 			<tr>
 				<td>
@@ -94,13 +94,13 @@
 			</tr>
 			<tr>
 				<td>Id
-					<input class="has_tooltip" data-tooltip="The attribute ID" type="text" id="attribute_id_%0" placeholder="generic.maxHealth" />
+					<input class="has_tooltip mandatory" data-tooltip="The attribute ID" type="text" id="attribute_id_%0" placeholder="generic.maxHealth" />
 					<br />
 				</td>
 				<td>Modifier Min & Max
 					<br />
-					<input class="has_tooltip" data-tooltip="Minimum percentage modifier for this attribute" type="number" id="attribute_modifier_min_%0" min="0" max="1024" value="0" />
-					<input class="has_tooltip" data-tooltip="Minimum percentage modifier for this attribute" type="number" id="attribute_modifier_max_%0" min="0" max="1024" value="0" />
+					<input class="has_tooltip mandatory" data-tooltip="Minimum percentage modifier for this attribute" type="number" id="attribute_modifier_min_%0" min="0" max="1024" value="0" />
+					<input class="has_tooltip mandatory" data-tooltip="Minimum percentage modifier for this attribute" type="number" id="attribute_modifier_max_%0" min="0" max="1024" value="0" />
 				</td>
 			</tr>
 			<tr>

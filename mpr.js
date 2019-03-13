@@ -17,7 +17,7 @@ window.onload = function() {
 
 	DOM.tooltip = document.getElementById("tooltip");
 	
-	RefreshTooltips();
+	refreshTooltips();
 }
 
 /*window.onbeforeunload = function() {
@@ -28,6 +28,13 @@ function generate() {
 
 	mob_id = getInputValue("mob_id");
 	mob = new Mob(mob_id);
+
+	mandatory_fields = Array.from(document.getElementsByClassName("mandatory"));
+	for (var e = 0; e < mandatory_fields.length; e++) {
+		element = mandatory_fields[e];
+		if (element.id != "" && !element.id.endsWith("%0") && !isValid(element))
+			return null;
+	}
 
 	mob.potion_effects.push(getPotionEffects());
 	mob.attributes.push(getAttributes());
@@ -57,4 +64,28 @@ function getInputValue(id) {
 	else {
 		return dom.value;
 	}
+}
+
+function isValid(dom) {
+	if (dom.tagName == "INPUT"){
+		if (dom.type == "number") {
+			if (parseFloat(dom.value) == null || isNaN(parseFloat(dom.value))) {
+				alert(dom.id + " is mandatory!");
+				return false;
+			}
+		}
+		else {
+			if (dom.value === null || dom.value == "") {
+				alert(dom.id + " is mandatory!");
+				return false;
+			}
+		}
+	}
+	else {
+		if (dom.value === null) {
+			alert(dom.id + " is mandatory!");
+			return false;
+		}
+	}
+	return true;
 }
