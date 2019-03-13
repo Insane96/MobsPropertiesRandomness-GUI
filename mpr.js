@@ -30,7 +30,7 @@ function Generate() {
 	mob = new Mob(mob_id);
 
 	mob.potion_effects.push(GetPotionEffects());
-	mob.potion_effects.push(GetAttributes());
+	mob.attributes.push(GetAttributes());
 
 	json = JSON.stringify(mob, (key, value) => {
 		//console.log(key + ": " + value);

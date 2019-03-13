@@ -15,7 +15,7 @@
 	
 	<body>
 		<p>Please Report bugs</p>
-		<p class="has_tooltip" data-tooltip="• Missing Equipment and Mobs Specific Properties and Groups<br />• Missing Validation for fields, be aware of what you write!<br />• There's no way to remove something<br />• Looks pretty bad" id="version">WIP Version</p>
+		<p class="has_tooltip" data-tooltip="• Missing Equipment, Mobs Specific Properties and Groups<br />• Missing Validation for fields, be aware of what you write!<br />• There's no way to remove something<br />• Looks pretty bad" id="version">WIP Version</p>
 		Mob Id <input class="has_tooltip" data-tooltip="The Mob ID" type="text" id="mob_id" placeholder="minecraft:creeper" />
 		<button id="generate" onclick="Generate()">Generate JSON</button>
 		<button id="add_potion_effect" onclick="AddPotionEffect()">Add Potion Effect</button>
@@ -52,8 +52,8 @@
 				</td>
 				<td>Amplifier Min & Max
 					<br />
-					<input class="has_tooltip" data-tooltip="The minimum amplifier possible when the potion effect is applied" type="number" id="potion_effect_amplifier_min_%0" min="0" max="255" value="0" />
-					<input class="has_tooltip" data-tooltip="The maximum amplifier possible when the potion effect is applied" type="number" id="potion_effect_amplifier_max_%0" min="0" max="255" value="0" />
+					<input class="has_tooltip" data-tooltip="The minimum amplifier possible when the potion effect is applied.<br />Remember that Potion Effects Levels start from 0, so an Amplifier of 0 for speed means that the Effect is Speed I" type="number" id="potion_effect_amplifier_min_%0" min="0" max="255" value="0" />
+					<input class="has_tooltip" data-tooltip="The maximum amplifier possible when the potion effect is applied.<br />Remember that Potion Effects Levels start from 0, so an Amplifier of 0 for speed means that the Effect is Speed I" type="number" id="potion_effect_amplifier_max_%0" min="0" max="255" value="0" />
 				</td>
 			</tr>
 			<tr>
@@ -121,11 +121,11 @@
 			<tr>
 				<td>Dimensions
 					<br />
-					<textarea class="has_tooltip" data-tooltip="A list of dimensions where the attribute should be modified. NOTE: only one dimension per line" id="attribute_dimensions_%0" cols="5" rows="5" placeholder="0\n-1"></textarea>
+					<textarea class="has_tooltip" data-tooltip="A list of dimensions where the attribute should be modified. NOTE: only one dimension per line" id="attribute_dimensions_%0" cols="5" rows="5" placeholder="0&#x0a;-1"></textarea>
 				</td>
 				<td>Biomes
 					<br />
-					<textarea class="has_tooltip" data-tooltip="A list of biomes where the attribute should be modified. NOTE: only one biome per line" id="attribute_biomes_%0" cols="25" rows="5" placeholder="minecraft:plains\nminecraft:desert"></textarea>
+					<textarea class="has_tooltip" data-tooltip="A list of biomes where the attribute should be modified. NOTE: only one biome per line" id="attribute_biomes_%0" cols="25" rows="5" placeholder="minecraft:plains&#x0a;minecraft:desert"></textarea>
 				</td>
 			</tr>
 		</table>
