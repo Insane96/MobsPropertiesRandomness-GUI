@@ -19,20 +19,20 @@ body {
 	font-size: 8pt;
 }
 
-.potion_effect_table {
+.form {
 	border: 1px solid black;
 	margin-left: auto;
 	margin-right: auto;
 	border-collapse: collapse;
 }
 
-.potion_effect_table tr, .potion_effect_table td {
+.form tr, .form td {
 	padding: 10px;
 	text-align: center;
 	border: 1px solid black;
 }
 
-.potion_effect_table#potion_effect_form {
+.blueprint_form {
 	display: none;
 }
 

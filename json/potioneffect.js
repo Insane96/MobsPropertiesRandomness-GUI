@@ -13,16 +13,12 @@ class PotionEffect {
 PotionEffect.count = 0;
 
 function AddPotionEffect() {
-	container = document.createElement("div");
-	container.id = "potion_effect_" + PotionEffect.count;
-
 	pe_form = document.getElementById("potion_effect_form").cloneNode(true);
 	pe_form.id = "potion_effect_" + PotionEffect.count;
+	pe_form.className = "form";
 	pe_form.innerHTML = pe_form.innerHTML.replace(/%0/g, PotionEffect.count);
 
-	container.appendChild(pe_form);
-
-	DOM.potion_effects.appendChild(container);
+	DOM.potion_effects.appendChild(pe_form);
 
 	RefreshTooltips();
 
