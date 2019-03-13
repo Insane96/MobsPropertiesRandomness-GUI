@@ -12,7 +12,7 @@ class PotionEffect {
 
 PotionEffect.count = 0;
 
-function AddPotionEffect() {
+function addPotionEffect() {
 	pe_form = document.getElementById("potion_effect_form").cloneNode(true);
 	pe_form.id = "potion_effect_" + PotionEffect.count;
 	pe_form.className = "form";
@@ -20,35 +20,35 @@ function AddPotionEffect() {
 
 	DOM.potion_effects.appendChild(pe_form);
 
-	RefreshTooltips();
+	refreshTooltips();
 
 	PotionEffect.count++;
 }
 
-function GetPotionEffects() {
+function getPotionEffects() {
 	potion_effects = [];
 	for (var i = 0; i < PotionEffect.count; i++) {
-		amount = GetInputValue("potion_effect_chance_amount_" + i);
-		affected_by_difficulty = GetInputValue("potion_effect_chance_affected_by_difficulty_" + i);
-		is_local_difficulty = GetInputValue("potion_effect_chance_is_local_difficulty_" + i);
-		multiplier = GetInputValue("potion_effect_chance_multiplier_" + i);
+		amount = getInputValue("potion_effect_chance_amount_" + i);
+		affected_by_difficulty = getInputValue("potion_effect_chance_affected_by_difficulty_" + i);
+		is_local_difficulty = getInputValue("potion_effect_chance_is_local_difficulty_" + i);
+		multiplier = getInputValue("potion_effect_chance_multiplier_" + i);
 		chance = new Chance(amount, affected_by_difficulty, is_local_difficulty, multiplier);
 	
-		min = GetInputValue("potion_effect_amplifier_min_" + i);
-		max = GetInputValue("potion_effect_amplifier_max_" + i);
+		min = getInputValue("potion_effect_amplifier_min_" + i);
+		max = getInputValue("potion_effect_amplifier_max_" + i);
 		amplifier = new RangeMinMax(min, max);
 	
-		id = GetInputValue("potion_effect_id_" + i);
-		ambient = GetInputValue("potion_effect_ambient_" + i);
-		hide_particles = GetInputValue("potion_effect_hide_particles_" + i);
-		dimensions = GetInputValue("potion_effect_dimensions_" + i);
+		id = getInputValue("potion_effect_id_" + i);
+		ambient = getInputValue("potion_effect_ambient_" + i);
+		hide_particles = getInputValue("potion_effect_hide_particles_" + i);
+		dimensions = getInputValue("potion_effect_dimensions_" + i);
 		if (dimensions != "") {
 			dimensions = dimensions.split("\n");
 			for (var d = 0; d < dimensions.length; d++) {
 				dimensions[d] = parseInt(dimensions[d]);
 			}
 		}
-		biomes = GetInputValue("potion_effect_biomes_" + i);
+		biomes = getInputValue("potion_effect_biomes_" + i);
 		if (biomes != "") {
 			biomes = biomes.split("\n");
 		}

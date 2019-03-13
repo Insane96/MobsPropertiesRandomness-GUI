@@ -24,13 +24,13 @@ window.onload = function() {
     return false;
 }*/
 
-function Generate() {
+function generate() {
 
-	mob_id = GetInputValue("mob_id");
+	mob_id = getInputValue("mob_id");
 	mob = new Mob(mob_id);
 
-	mob.potion_effects.push(GetPotionEffects());
-	mob.attributes.push(GetAttributes());
+	mob.potion_effects.push(getPotionEffects());
+	mob.attributes.push(getAttributes());
 
 	json = JSON.stringify(mob, (key, value) => {
 		//console.log(key + ": " + value);
@@ -41,7 +41,7 @@ function Generate() {
 
 }
 
-function GetInputValue(id) {
+function getInputValue(id) {
 	dom = document.getElementById(id);
 	if (dom.tagName == "INPUT"){
 		if (dom.type == "checkbox") {

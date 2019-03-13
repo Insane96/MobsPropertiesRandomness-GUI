@@ -1,4 +1,4 @@
-function ShowTooltip(text, dom) {
+function showTooltip(text, dom) {
 	DOM.tooltip.style.display = "initial";
 	DOM.tooltip.innerHTML = text;
 	x = dom.getBoundingClientRect().x;
@@ -12,17 +12,17 @@ function ShowTooltip(text, dom) {
 	DOM.tooltip.style.visibility = "visible";
 }
 
-function HideTooltip() {
+function hideTooltip() {
 	DOM.tooltip.style.display = "none";
 	DOM.tooltip.style.visibility = "hidden";
 }
 
-function RefreshTooltips() {
+function refreshTooltips() {
     tooltipped = document.getElementsByClassName("has_tooltip");
 	for (var i = 0; i < tooltipped.length; i++) {
         needTooltip = tooltipped[i];
 
-        needTooltip.onmouseover = ShowTooltip.bind(this, needTooltip.dataset.tooltip, needTooltip);
-        needTooltip.onmouseleave = HideTooltip.bind(this);
+        needTooltip.onmouseover = showTooltip.bind(this, needTooltip.dataset.tooltip, needTooltip);
+        needTooltip.onmouseleave = hideTooltip.bind(this);
 	}
 }
