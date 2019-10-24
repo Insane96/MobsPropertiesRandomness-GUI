@@ -36,12 +36,14 @@ function generate() {
 			return null;
 	}
 
-	mob.potion_effects.push(getPotionEffects());
-	mob.attributes.push(getAttributes());
+	if (hasPotionEffects())
+		mob.potion_effects.push(getPotionEffects());
+	if (hasAttributes())
+		mob.attributes.push(getAttributes());
 
 	json = JSON.stringify(mob, (key, value) => {
 		//console.log(key + ": " + value);
-		if (value !== null && value !== "")
+		if (value !== null && value !== "" && value !== [])
 			return value;
 	}, "\t");
 	DOM.json.innerHTML = json;
