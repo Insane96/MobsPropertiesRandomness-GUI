@@ -60,3 +60,7 @@ function getAttributes() {
     }
     return attributes;
 }
+
+function hasAttributes() {
+	return Attribute.count > 0;
+}
