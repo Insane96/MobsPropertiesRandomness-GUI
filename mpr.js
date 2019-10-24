@@ -1,9 +1,9 @@
 class Mob {
 	constructor(mob_id) {
 		this.mob_id = mob_id;
-		this.potion_effects = [];
-		this.attributes = [];
-		this.equipment = [];
+		this.potion_effects = null;
+		this.attributes = null;
+		this.equipment = null;
 	}
 }
 
@@ -36,18 +36,32 @@ function generate() {
 			return null;
 	}
 
-	if (hasPotionEffects())
-		mob.potion_effects.push(getPotionEffects());
-	if (hasAttributes())
-		mob.attributes.push(getAttributes());
+	if (hasPotionEffects()){
+		mob.potion_effects = getPotionEffects();
+	}
+	if (hasAttributes()) {
+		mob.attributes = getAttributes();
+	}
 
 	json = JSON.stringify(mob, (key, value) => {
-		//console.log(key + ": " + value);
-		if (value !== null && value !== "" && value !== [])
+		if (value !== null && value !== "" && value != [])
 			return value;
 	}, "\t");
 	DOM.json.innerHTML = json;
 
+	document.getElementById("download_json").style.visibility = "initial";
+
+}
+
+function downloadJson() {
+	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(DOM.json.innerHTML);
+	var downloadAnchorNode = document.createElement('a');
+	var exportName = mob.mob_id;
+	downloadAnchorNode.setAttribute("href", dataStr);
+	downloadAnchorNode.setAttribute("download", exportName + ".json");
+	document.body.appendChild(downloadAnchorNode); // required for firefox
+	downloadAnchorNode.click();
+	downloadAnchorNode.remove();
 }
 
 function getInputValue(id) {

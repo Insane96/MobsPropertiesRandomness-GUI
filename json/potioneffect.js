@@ -61,6 +61,6 @@ function getPotionEffects() {
 	return potion_effects;
 }
 
-function hasPotionEffect() {
+function hasPotionEffects() {
 	return PotionEffect.count > 0;
 }
