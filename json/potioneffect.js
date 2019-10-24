@@ -54,6 +54,7 @@ function getPotionEffects() {
 		}
 
 		potion_effect = new PotionEffect(id, amplifier, chance, ambient, hide_particles, dimensions, biomes);
+		console.log(potion_effect);
 
 		potion_effects.push(potion_effect);
 	}

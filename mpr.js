@@ -44,7 +44,7 @@ function generate() {
 	}
 
 	json = JSON.stringify(mob, (key, value) => {
-		if (value !== null && value !== "" && value != [])
+		if (value !== null && value !== "")
 			return value;
 	}, "\t");
 	DOM.json.innerHTML = json;
