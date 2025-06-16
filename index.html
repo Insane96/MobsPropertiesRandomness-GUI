@@ -1,134 +1,50 @@
-<html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv="pragma" content="no-cache" />
-		<meta name="author" content="Alberto Del Villano">
 
 		<title>Mobs Properties Randomness</title>
-		<script type="text/javascript" src="tooltip.js"></script>
-		<script type="text/javascript" src="json/utils.js"></script>
-		<script type="text/javascript" src="json/attribute.js"></script>
-		<script type="text/javascript" src="json/potioneffect.js"></script>
-		<script type="text/javascript" src="mpr.js"></script>
-		<link rel="stylesheet" type="text/css" href="mpr.css">
+		<script src="jszip.min.js"></script>
+		<script type="text/javascript">
+			async function generate() {
+				const namespace = document.getElementById("namespace").value;
+				if (namespace === "" || !/^[a-z0-9_]*$/.test(namespace)) {
+					alert("Empty or invalid namespace. Con contain only lowercase letters, numbers and underscores.");
+					return;
+				}
+
+				const response = await fetch("assets/pack.mcmeta");
+				if (!response.ok) {
+					alert("Failed to load pack.mcmeta");
+					return;
+				}
+				let template = await response.text();
+
+				template = template.replace("#description", document.getElementById("description").value);
+				template = template.replace("#pack_version", document.getElementById("mc_version").value);
+
+				const zip = new JSZip();
+				zip.file("pack.mcmeta", template);
+				zip.folder("data/" + namespace + "/mobs_properties_randomness/mobs");
+				zip.folder("data/" + namespace + "/mobs_properties_randomness/presets");
+
+				const content = await zip.generateAsync({ type: "blob" });
+
+				const link = document.createElement("a");
+				link.href = URL.createObjectURL(content);
+				link.download = namespace + ".zip";
+				link.click();
+			}
+		</script>
 	</head>
 	
 	<body>
-		<p>Please Report bugs</p>
-		<p class="has_tooltip" data-tooltip="• Missing Equipment, Mobs Specific Properties and Groups<br />• Missing Validation for fields, be aware of what you write!<br />• There's no way to remove something<br />• Looks pretty bad" id="version">WIP Version</p>
-		Mob Id <input class="has_tooltip mandatory" data-tooltip="The Mob ID" type="text" id="mob_id" placeholder="minecraft:creeper" />
-		<button id="generate" onclick="generate()">Generate JSON</button>
-		<button id="add_potion_effect" onclick="addPotionEffect()">Add Potion Effect</button>
-		<button id="add_attribute" onclick="addAttribute()">Add Attribute</button> <p />
-		<table>
-			<tr>
-				<td>
-					<div id="potion_effects" class="container"></div>
-				</td>
-				<td>
-					<div id="attributes" class="container"></div>
-				</td>
-				<td>
-					<div id="equipment" class="container"></div>
-				</td>
-			</tr>
-		</table>
-		<button id="download_json" onclick="downloadJson()" style="visibility: hidden;">Download JSON</button>
-		<pre id="json"></pre>
-
-		<div id="tooltip"></div>
-		<div id="git"><a href="https://github.com/Insane-96/MobsPropertiesRandomness-GUI">Source</a> • <a href="https://github.com/Insane-96/MobsPropertiesRandomness">Mod Source</a></div>
-
-		<!--Potion effect table to clone-->
-		<table class="blueprint_form" id="potion_effect_form">
-			<tr>
-				<td colspan="2">
-					<p class="form_name">Potion Effect #%0</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Id
-					<input class="has_tooltip mandatory" data-tooltip="The Potion Effect ID" type="text" id="potion_effect_id_%0" placeholder="minecraft:regeneration" />
-					<br />
-				</td>
-				<td>Amplifier Min & Max
-					<br />
-					<input class="has_tooltip mandatory" data-tooltip="The minimum amplifier possible when the potion effect is applied.<br />Remember that Potion Effects Levels start from 0, so an Amplifier of 0 for speed means that the Effect is Speed I" type="number" id="potion_effect_amplifier_min_%0" min="0" max="255" value="0" />
-					<input class="has_tooltip mandatory" data-tooltip="The maximum amplifier possible when the potion effect is applied.<br />Remember that Potion Effects Levels start from 0, so an Amplifier of 0 for speed means that the Effect is Speed I" type="number" id="potion_effect_amplifier_max_%0" min="0" max="255" value="0" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<p class="chance_title">Chance</p>Amount
-					<input class="has_tooltip mandatory" data-tooltip="Percentage Chance for this Potion Effect to be Applied" type="number" id="potion_effect_chance_amount_%0" min="0" max="100" step="0.1" value="100" />
-					<br />Is Affected By Difficulty
-					<input class="has_tooltip" data-tooltip="If the percentage chance should be modified by Difficulty" type="checkbox" id="potion_effect_chance_affected_by_difficulty_%0" />
-					<br />Is Local Difficulty
-					<input class="has_tooltip" data-tooltip="If percentage chance should be modified by Local Difficulty (aka Regional Difficulty) instead of plain difficulty (Easy, Normal or Hard)" type="checkbox" id="potion_effect_chance_is_local_difficulty_%0" />
-					<br />Multiplier
-					<input class="has_tooltip" data-tooltip="Multiplier for the percentage chance" type="number" id="potion_effect_chance_multiplier_%0" min="0" max="128" value="1" />
-				</td>
-				<td>Ambient
-					<input class="has_tooltip" data-tooltip="If potion effect particles should be visible partially like beacon effects ones" type="checkbox" id="potion_effect_ambient_%0" />
-					<br />Hide Particles
-					<input class="has_tooltip" data-tooltip="If particles should not be displayed at all" type="checkbox" id="potion_effect_hide_particles_%0" />
-				</td>
-			</tr>
-			<tr>
-				<td>Dimensions
-					<br />
-					<textarea class="has_tooltip" data-tooltip="A list of dimensions where the potion effect should be applied. NOTE: only one dimension per line" id="potion_effect_dimensions_%0" cols="5" rows="5" placeholder="0&#x0a;-1"></textarea>
-				</td>
-				<td>Biomes
-					<br />
-					<textarea class="has_tooltip" data-tooltip="A list of biomes where the potion effect should be applied. NOTE: only one biome per line" id="potion_effect_biomes_%0" cols="25" rows="5" placeholder="minecraft:plains&#x0a;minecraft:desert"></textarea>
-				</td>
-			</tr>
-		</table>
-	
-		<!--Attribute table to clone-->
-		<table class="blueprint_form" id="attribute_form">
-			<tr>
-				<td colspan="2">
-					<p class="form_name">Attribute #%0</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Id
-					<input class="has_tooltip mandatory" data-tooltip="The attribute ID" type="text" id="attribute_id_%0" placeholder="generic.maxHealth" />
-					<br />
-				</td>
-				<td>Modifier Min & Max
-					<br />
-					<input class="has_tooltip mandatory" data-tooltip="Minimum percentage modifier for this attribute" type="number" id="attribute_modifier_min_%0" min="0" max="1024" value="0" />
-					<input class="has_tooltip mandatory" data-tooltip="Minimum percentage modifier for this attribute" type="number" id="attribute_modifier_max_%0" min="0" max="1024" value="0" />
-				</td>
-			</tr>
-			<tr>
-				<td>Is Flat
-					<input class="has_tooltip" data-tooltip="If the modifier values should be applied as they are to the mob instead of begin percentages (e.g. 50 generic.maxHealth would be 50 health instead of 50% more health" type="checkbox" id="attribute_is_flat_%0" />
-					<br />Affected By Difficulty
-					<input class="has_tooltip" data-tooltip="If modifier values should be affected by difficulty. This must be true for the difficulty settings to apply" type="checkbox" id="attribute_affected_by_difficulty_%0" />
-				</td>
-				<td>
-					<p class="chance_title">Difficulty</p>Affects Max Only
-					<input class="has_tooltip" data-tooltip="If the difficulty should affect the maximum modifier only" type="checkbox" id="attribute_difficulty_affects_max_only_%0" />
-					<br />Is Local Difficulty
-					<input class="has_tooltip" data-tooltip="If modifier values should be modified by Local Difficulty (aka Regional Difficulty) instead of plain difficulty (Easy, Normal or Hard)" type="checkbox" id="attribute_difficulty_is_local_difficulty_%0" />
-					<br />Multiplier
-					<input class="has_tooltip" data-tooltip="The multiplier for the modifier" type="number" id="attribute_difficulty_multiplier_%0" min="0" max="128" step="0.1" value="1" />
-				</td>
-			</tr>
-			<tr>
-				<td>Dimensions
-					<br />
-					<textarea class="has_tooltip" data-tooltip="A list of dimensions where the attribute should be modified. NOTE: only one dimension per line" id="attribute_dimensions_%0" cols="5" rows="5" placeholder="0&#x0a;-1"></textarea>
-				</td>
-				<td>Biomes
-					<br />
-					<textarea class="has_tooltip" data-tooltip="A list of biomes where the attribute should be modified. NOTE: only one biome per line" id="attribute_biomes_%0" cols="25" rows="5" placeholder="minecraft:plains&#x0a;minecraft:desert"></textarea>
-				</td>
-			</tr>
-		</table>
+	<p>Generate an empty data pack for Mobs Properties Randomness</p>
+	<label for="namespace">Namespace </label><input id="namespace" placeholder="Choose a namespace"><br />
+	<label for="mc_version">Minecraft version </label>
+	<select id="mc_version" name="mc_version">
+			<option value="15">1.20.1</option>
+	</select><br />
+	<label for="description">Description </label><input id="description" placeholder="Data pack description"><br />
+	<p><button id="generate" onclick="generate()">Generate</button></p>
 	</body>
 </html>
